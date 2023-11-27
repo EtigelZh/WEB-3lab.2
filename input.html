@@ -1,0 +1,35 @@
+<html>
+ <head>
+ <title> Пример JINJA2 </title>
+ </head>
+<body>
+<div>
+{% macro create_table(dict, n) %}
+ {%if dict|length >= n %}
+    {%set value = dict|length %}
+     {% for key in dict[: n // 2] %}
+        <h3>{{ key.title }}</h3>
+        <p>{{ key.author }}</p>
+        <p>{{ key.price }}</p>
+  {% endfor %}
+    <h3>...</h3>
+     {% for key in dict[value - n//2: value] %}
+        <h3>{{ key.title }}</h3>
+        <p>{{ key.author }}</p>
+        <p>{{ key.price }}</p>
+  {% endfor %}
+ {% endif %}
+    {% if dict|length < n %}
+        {% for key in dict %}
+            <h3>{{ key.title }}</h3>
+            <p>{{ key.author }}</p>
+            <p>{{ key.price }}</p>
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+</div>
+ <p>
+     {{ create_table(dict, n) }}
+ </p>
+ </body>
+</html>
